@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import { bookingsService } from "./bookings.service.js";
-import { role } from "../../utils/role.js";
+import { role } from "../../types/index.js";
 
 const createBooking = async (req: Request, res: Response) => {
-  // console.log(req.body);
   try {
     const result = await bookingsService.createBooking(req.body);
     res.status(201).json({
@@ -37,7 +36,6 @@ const getAllBookings = async (req: Request, res: Response) => {
     });
   }
 };
-// ========================================
 const updateBookings = async (req: Request, res: Response) => {
   try {
     const bookingId = req.params.id;
@@ -63,7 +61,6 @@ const updateBookings = async (req: Request, res: Response) => {
     });
   }
 };
-// ===========================================
 const autoReturnBookings = async (req: any, res: any) => {
   try {
     const updatedBookings = await bookingsService.autoReturnBookings();

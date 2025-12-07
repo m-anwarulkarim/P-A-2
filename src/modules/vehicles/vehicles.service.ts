@@ -35,7 +35,6 @@ const createVehicles = async (payload: Record<string, unknown>) => {
   );
   return result;
 };
-//===================
 
 const getAllVehicles = async () => {
   const result = await pool.query(`
@@ -48,8 +47,6 @@ const getAllVehicles = async () => {
   return result;
 };
 
-// ====================
-
 const getSingleVehicles = async (id: string) => {
   const result = await pool.query(
     `
@@ -60,10 +57,9 @@ const getSingleVehicles = async (id: string) => {
   if (result.rows.length === 0) {
     throw new Error("No vehicles found");
   }
-  // console.log(id);
+
   return result;
 };
-//===================
 
 const updateVehicles = async (id: string, payload: Record<string, unknown>) => {
   const {
@@ -95,10 +91,7 @@ const updateVehicles = async (id: string, payload: Record<string, unknown>) => {
   return result;
 };
 
-// ==================
-
 const deleteVehicles = async (vehicleId: string) => {
-  //  Check if vehicle exists
   const vehicleCheck = await pool.query(`SELECT * FROM vehicles WHERE id=$1`, [
     vehicleId,
   ]);
@@ -107,7 +100,6 @@ const deleteVehicles = async (vehicleId: string) => {
     throw new Error("No vehicles found");
   }
 
-  //  Check active bookings
   const activeBookings = await pool.query(
     `SELECT * FROM bookings WHERE vehicle_id=$1 AND status='active'`,
     [vehicleId]
@@ -117,7 +109,6 @@ const deleteVehicles = async (vehicleId: string) => {
     throw new Error("Cannot delete vehicle with active bookings");
   }
 
-  // delete vehicle
   const result = await pool.query(
     `DELETE FROM vehicles WHERE id=$1 RETURNING *`,
     [vehicleId]
@@ -126,7 +117,6 @@ const deleteVehicles = async (vehicleId: string) => {
   return result.rows[0];
 };
 
-//
 export const vehicleService = {
   createVehicles,
   getAllVehicles,

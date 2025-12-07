@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { bookingsController } from "./bookings.controller.js";
 import auth from "../../middleware/auth.js";
-import { role } from "../../utils/role.js";
+import { role } from "../../types/index.js";
 
 const router = Router();
 router.post(

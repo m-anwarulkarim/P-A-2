@@ -1,5 +1,5 @@
 import { pool } from "../../config/db.js";
-import { role } from "../../utils/role.js";
+import { role } from "../../types/index.js";
 
 const createBooking = async (payload: Record<string, unknown>) => {
   const { customer_id, vehicle_id, rent_start_date, rent_end_date } = payload;
@@ -23,10 +23,8 @@ const createBooking = async (payload: Record<string, unknown>) => {
     if (Vehicledata.rows[0].availability_status === "booked") {
       throw new Error("Vehicle is not available");
     }
-    //
-    const dailyPrice = Vehicledata.rows[0].daily_rent_price;
 
-    // 2.   --------------- dates
+    const dailyPrice = Vehicledata.rows[0].daily_rent_price;
 
     const startDate = new Date(String(rent_start_date));
     const endDate = new Date(String(rent_end_date));
@@ -41,7 +39,6 @@ const createBooking = async (payload: Record<string, unknown>) => {
     const totalTDate = Math.ceil(
       (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
     );
-    // -------- check bookings
     const bookingOver = await pool.query(
       `
   SELECT * FROM bookings
@@ -58,7 +55,6 @@ const createBooking = async (payload: Record<string, unknown>) => {
     }
 
     const total_price = dailyPrice * totalTDate;
-    // --------------insert bookings
     const result = await pool.query(
       `  
     INSERT INTO bookings (customer_id, vehicle_id, rent_start_date,rent_end_date ,total_price, status)
@@ -68,7 +64,6 @@ const createBooking = async (payload: Record<string, unknown>) => {
     `,
       [customer_id, vehicle_id, rent_start_date, rent_end_date, total_price]
     );
-    // --------------- UPDATE availability_status
     await pool.query(
       ` 
     UPDATE vehicles 
@@ -89,8 +84,6 @@ const createBooking = async (payload: Record<string, unknown>) => {
     throw new Error(error.message);
   }
 };
-
-// Get All Bookings -------------------------------
 
 const getAllBookings = async (users: any) => {
   if (users.role === role.admin) {
@@ -145,11 +138,9 @@ const getAllBookings = async (users: any) => {
   });
 };
 
-// ========================================================================
 const updateBookings = async (id: string, payload: any, user: any) => {
   const { status } = payload;
 
-  // Load booking
   const bookingData = await pool.query(`SELECT * FROM bookings WHERE id=$1`, [
     id,
   ]);
@@ -158,13 +149,10 @@ const updateBookings = async (id: string, payload: any, user: any) => {
 
   const booking = bookingData.rows[0];
 
-  // ============= CUSTOMER CANCEL
   if (status === "cancelled") {
     if (user.role !== role.customer) {
       throw new Error("Only customer can cancel booking");
     }
-
-    // Rent শুরু হওয়ার তারিখ চলে গেলে আর booking cancel করা যাবে না
 
     if (new Date() >= new Date(booking.rent_start_date)) {
       throw new Error("Cannot cancel after rent start date");
@@ -183,7 +171,6 @@ const updateBookings = async (id: string, payload: any, user: any) => {
     return updated.rows[0];
   }
 
-  // ============= ADMIN RETURN
   if (status === "returned") {
     if (user.role !== role.admin) {
       throw new Error("Only admin can  return");
@@ -204,10 +191,6 @@ const updateBookings = async (id: string, payload: any, user: any) => {
 
   throw new Error("Invalid status update");
 };
-
-// ===========================================================
-// Auto Return Bookings
-// ===========================================================
 
 const autoReturnBookings = async () => {
   const today = new Date().toISOString().split("T")[0];

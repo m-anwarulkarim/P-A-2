@@ -22,13 +22,10 @@ const updateUser = async (
 ) => {
   const { name, email, phone, role } = payload;
 
-  // =====================
   if (loggedInUser.role === "customer" && loggedInUser.id !== id) {
     throw new Error("You are not allowed to update this user");
   }
   const safeRole = loggedInUser.role === "admin" ? role : null;
-
-  // ============
 
   const result = await pool.query(
     `
@@ -55,16 +52,13 @@ const updateUser = async (
   return user;
 };
 
-// ==================================
 const deleteUser = async (id: string) => {
-  // 1. Check if user exists
   const userCheck = await pool.query(`SELECT * FROM users WHERE id=$1`, [id]);
 
   if (!userCheck.rows.length) {
     throw new Error("User not found");
   }
 
-  // 2. Check active bookings
   const activeBookings = await pool.query(
     `SELECT * FROM bookings WHERE customer_id=$1 AND status='active'`,
     [id]
@@ -74,7 +68,6 @@ const deleteUser = async (id: string) => {
     throw new Error("Cannot delete user with active bookings");
   }
 
-  // 3. Delete user
   const result = await pool.query(`DELETE FROM users WHERE id=$1 RETURNING *`, [
     id,
   ]);

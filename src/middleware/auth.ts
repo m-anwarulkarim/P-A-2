@@ -4,15 +4,12 @@ import config from "../config/index.js";
 
 const auth = (...roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    //
     const authHeader = req.headers.authorization;
     const token =
       authHeader && authHeader.startsWith("Bearer ")
         ? authHeader.split(" ")[1]
         : null;
-    //
 
-    // console.log(authHeader, token);
     if (!token) {
       return res
         .status(401)

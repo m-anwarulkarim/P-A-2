@@ -1,8 +1,7 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { userController } from "./user.controller.js";
 import auth from "../../middleware/auth.js";
-import { role } from "../../utils/role.js";
-
+import { role } from "../../types/index.js";
 const router = Router();
 
 router.get("/", auth(role.admin, role.customer), userController.getAllUser);

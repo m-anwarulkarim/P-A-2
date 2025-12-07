@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export type Role = {
-  admin: "admin";
-  customer: "customer";
+export const role = {
+  admin: "admin",
+  customer: "customer",
 };
