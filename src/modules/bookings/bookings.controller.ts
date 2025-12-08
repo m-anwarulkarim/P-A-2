@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { bookingsService } from "./bookings.service.js";
-import { role } from "../../types/index.js";
-
+import { role } from "../../types/type.js";
 const createBooking = async (req: Request, res: Response) => {
   try {
     const result = await bookingsService.createBooking(req.body);

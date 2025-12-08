@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { vehiclesController } from "./vehicles.controller.js";
 import auth from "../../middleware/auth.js";
-import { role } from "../../types/index.js";
+import { role } from "../../types/type.js";
 
 const router = Router();
 router.post("/", auth(role.admin), vehiclesController.createVehicles);

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { userController } from "./user.controller.js";
 import auth from "../../middleware/auth.js";
-import { role } from "../../types/index.js";
+import { role } from "../../types/type.js";
 const router = Router();
 
 router.get("/", auth(role.admin, role.customer), userController.getAllUser);
