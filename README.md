@@ -1,6 +1,6 @@
 # Vehicle Rental Management System
 
-**Live Deployment:** https://assignment-2-inky-chi.vercel.app/
+**Live Deployment:** https://p-a-2.vercel.app/
 
 ---
 
@@ -28,7 +28,7 @@ This is a Vehicle Rental Management System built using **Node.js**, **Express**,
 
 ## Technology Stack
 
-[![Live Deployment](https://img.shields.io/badge/Live-Deployment-blue)](https://vehicles-sh2d0wa51-devanwarul-3537s-projects.vercel.app/)
+[![Live Deployment](https://img.shields.io/badge/Live-Deployment-blue)](https://p-a-2.vercel.app/)
 [![Node.js](https://img.shields.io/badge/Backend-Node.js-green?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Framework-Express-black?logo=express&logoColor=white)](https://expressjs.com/)
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
@@ -132,5 +132,5 @@ Submission
 ```bsh
 GitHub Repo: https://github.com/m-anwarulkarim/P-A-2
 
-Live Deployment: https://vehicles-sh2d0wa51-devanwarul-3537s-projects.vercel.app/
+Live Deployment: https://p-a-2.vercel.app/
 ```
