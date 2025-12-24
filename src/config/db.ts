@@ -5,7 +5,7 @@ export const pool = new Pool({ connectionString: config.CONNECTION_STRING });
 
 const initDB = async () => {
   await pool.query(`
-    CREATE TABLE IF NOT EXISTS users (
+    CREATE TABLE IF NOT EXISTS  users (
       id SERIAL PRIMARY KEY,
       name VARCHAR(100) NOT NULL,
       email VARCHAR(150) UNIQUE NOT NULL CHECK (email = LOWER(email)),
@@ -14,7 +14,6 @@ const initDB = async () => {
       role TEXT NOT NULL DEFAULT 'customer' CHECK (role IN ('admin', 'customer'))
     );
   `);
-  // heloo
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS vehicles (
@@ -40,5 +39,4 @@ const initDB = async () => {
   );
 `);
 };
-
 export default initDB;

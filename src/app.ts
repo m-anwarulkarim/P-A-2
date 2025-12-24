@@ -6,7 +6,6 @@ import { authRouter } from "./modules/auth/auth.route.js";
 import { bookingsRouter } from "./modules/bookings/bookings.route.js";
 const app = express();
 app.use(express.json());
-
 initDB();
 
 app.use("/api/v1/auth", authRouter);
