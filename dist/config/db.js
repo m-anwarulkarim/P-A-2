@@ -1,10 +1,8 @@
 import { Pool } from "pg";
 import config from "./index.js";
-
 export const pool = new Pool({ connectionString: config.CONNECTION_STRING });
-
 const initDB = async () => {
-  await pool.query(`
+    await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       name VARCHAR(100) NOT NULL,
@@ -14,9 +12,8 @@ const initDB = async () => {
       role TEXT NOT NULL DEFAULT 'customer' CHECK (role IN ('admin', 'customer'))
     );
   `);
-  // heloo
-
-  await pool.query(`
+    // heloo
+    await pool.query(`
     CREATE TABLE IF NOT EXISTS vehicles (
       id SERIAL PRIMARY KEY,
       vehicle_name VARCHAR(100) NOT NULL,
@@ -26,8 +23,7 @@ const initDB = async () => {
        availability_status TEXT NOT NULL DEFAULT 'available' CHECK (availability_status IN ('available', 'booked'))
     );
   `);
-
-  await pool.query(`
+    await pool.query(`
     CREATE TABLE IF NOT EXISTS bookings (
     id SERIAL PRIMARY KEY,
     customer_id INT REFERENCES users(id) ON DELETE CASCADE,
@@ -40,5 +36,4 @@ const initDB = async () => {
   );
 `);
 };
-
 export default initDB;
