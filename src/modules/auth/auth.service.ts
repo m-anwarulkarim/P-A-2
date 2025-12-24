@@ -1,7 +1,7 @@
-import { pool } from "../../config/db.js";
 import bcrypt from "bcryptjs";
 import Jwt from "jsonwebtoken";
 import config from "../../config/index.js";
+import { pool } from "../../config/db.js";
 
 const signup = async (payload: Record<string, unknown>) => {
   const { name, email, password, phone, role } = payload;
