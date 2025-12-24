@@ -6,17 +6,9 @@ import { role } from "../../utils/role.js";
 const router = Router();
 router.post("/", auth(role.admin), vehiclesController.createVehicles);
 
-router.get(
-  "/",
-  auth(role.admin, role.customer),
-  vehiclesController.getAllVehicles
-);
+router.get("/", vehiclesController.getAllVehicles);
 
-router.get(
-  "/:id",
-  auth(role.admin, role.customer),
-  vehiclesController.getSingelVehicles
-);
+router.get("/:id", vehiclesController.getSingelVehicles);
 
 router.put("/:id", auth(role.admin), vehiclesController.updateVehicles); //
 
