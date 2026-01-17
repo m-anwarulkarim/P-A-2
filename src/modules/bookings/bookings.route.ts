@@ -7,22 +7,22 @@ const router = Router();
 router.post(
   "/",
   auth(role.admin, role.customer),
-  bookingsController.createBooking
+  bookingsController.createBooking,
 );
 router.get(
   "/",
   auth(role.admin, role.customer),
-  bookingsController.getAllBookings
+  bookingsController.getAllBookings,
 );
 
 router.put(
   "/:id",
   auth(role.admin, role.customer),
-  bookingsController.updateBookings
+  bookingsController.updateBookings,
 );
 router.put(
   "/auto-return",
   auth(role.admin),
-  bookingsController.autoReturnBookings
+  bookingsController.autoReturnBookings,
 );
 export const bookingsRouter = router;
